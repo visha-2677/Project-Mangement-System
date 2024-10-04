@@ -3,6 +3,8 @@ const database=require("./config/database");
 const cors=require("cors")
 const {errorHandler}=require("./middlewares/errorHandler");
 const { cloudinaryConnect } = require("./config/cloudinary");
+const fileUpload = require("express-fileupload");
+const os=require("os");
 require("dotenv").config();
 
 
@@ -23,6 +25,14 @@ require("dotenv").config();
                 // frontend url to connect backend using cors
                 origin:"http://localhost:4200",
                 credentials:true,
+            })
+        )
+
+        //first response file are save server side temp dir than get this file using req.files to excess it and using this parse the (multipart/form-data) 
+        app.use(
+            fileUpload({
+                useTempFiles:true,
+                tempFileDir:os.tmpdir(),
             })
         )
         

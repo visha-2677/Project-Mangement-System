@@ -16,6 +16,36 @@ const addProjectService=async (body,logo)=>{
     }
 }
 
+const findProjectByIdService=async (id)=>{
+    try{
+        return await projectModel.findById(id);
+    }
+    catch(error){
+        throw new MongoError(error);
+    }
+}
+
+const updateProjectByIdService=async (id,project)=>{
+    try{
+        return await projectModel.findByIdAndUpdate(id,project,{new:true});
+    }
+    catch(error){
+        throw new MongoError(error);
+    }
+}
+
+const getAllProjectsService=async ()=>{
+    try{
+        return await projectModel.find();
+    }
+    catch(error){
+        throw new MongoError(error);
+    }
+}
+
 module.exports={
-    addProjectService
+    addProjectService,
+    findProjectByIdService,
+    updateProjectByIdService,
+    getAllProjectsService
 }

@@ -27,10 +27,6 @@ const signUp=async (req,res,next)=>{
     }
     catch(error){
         next(error);
-        // return res.status(500).json({
-        //     success:false,
-        //     message:"User cannot be registered, Please try again",
-        // });
     }
 
 }
@@ -81,10 +77,6 @@ const signIn=async (req,res,next)=>{
     }
     catch(error){
         next(error);
-        // return res.status(500).json({
-        //     success:false,
-        //     message:"Login is failure try again",
-        // })
     }
 }
 
