@@ -3,8 +3,6 @@ const database=require("./config/database");
 const cors=require("cors")
 const {errorHandler}=require("./middlewares/errorHandler");
 const { cloudinaryConnect } = require("./config/cloudinary");
-const fileUpload = require("express-fileupload");
-const os=require("os");
 require("dotenv").config();
 
 
@@ -17,6 +15,11 @@ require("dotenv").config();
 
         // Add the middleware to parse JSON bodies from all api request
         app.use(express.json());
+        // this middleware using express to parse complex, nested URL-encoded form data while limiting the request body size to 100MB to prevent excessive payloads.
+        app.use(express.urlencoded({
+            extended: true,
+            limit: '100mb'
+        }));
 
         //use this middleware to front end application for excess the back end api request for that use cors (Same Origin Policy)
         //if not use than front end are not excess api 
@@ -29,12 +32,12 @@ require("dotenv").config();
         )
 
         //first response file are save server side temp dir than get this file using req.files to excess it and using this parse the (multipart/form-data) 
-        app.use(
-            fileUpload({
-                useTempFiles:true,
-                tempFileDir:os.tmpdir(),
-            })
-        )
+        // app.use(
+        //     fileUpload({
+        //         useTempFiles:true,
+        //         tempFileDir:os.tmpdir(),
+        //     })
+        // )
         
         //data base connection of mongodb
         await database.connect();
